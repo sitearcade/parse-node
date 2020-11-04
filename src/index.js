@@ -1,4 +1,4 @@
 // export
 
-export * from './parseBody';
+export * from './parseMark';
 export * from './parseNode';

@@ -17,7 +17,7 @@ _This_ is the **body**.
 
 describe('parseNode(file, [rawData])', () => {
   it('produces valid output for real data', async () => {
-    const res = await parseNode('./content/post/2012-02/slug.md', testPost);
+    const res = await parseNode('./content/post/slug.md', testPost);
 
     expect(res).toMatchInlineSnapshot(`
       Object {
@@ -26,16 +26,17 @@ describe('parseNode(file, [rawData])', () => {
         "meta": Object {
           "bannerImage": null,
           "bodyImages": Array [],
-          "description": "This is the body.…",
-          "file": "./content/post/2012-02/slug.md",
+          "description": "This is the body…",
+          "file": "./content/post/slug.md",
           "headings": Array [],
-          "link": "/post/2012-02/slug",
+          "link": "/post/slug",
           "publishDate": "2012-12-21T00:00:00.000Z",
-          "slug": "2012-02/slug",
+          "slug": "slug",
           "tags": Array [],
           "title": "Title",
           "type": "post",
         },
+        "more": "",
       }
     `);
   });
