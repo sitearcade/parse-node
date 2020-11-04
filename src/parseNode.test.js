@@ -8,6 +8,8 @@ import {parseNode} from './parseNode';
 
 const testPost = `---
 title: Title
+createDate: 1984-04-08
+updateDate: 1984-04-20
 publishDate: 2012-12-21
 ---
 _This_ is the **body**.
@@ -26,6 +28,7 @@ describe('parseNode(file, [rawData])', () => {
         "meta": Object {
           "bannerImage": null,
           "bodyImages": Array [],
+          "createDate": "1984-04-08T00:00:00.000Z",
           "description": "This is the body…",
           "file": "./content/post/slug.md",
           "headings": Array [],
@@ -35,6 +38,7 @@ describe('parseNode(file, [rawData])', () => {
           "tags": Array [],
           "title": "Title",
           "type": "post",
+          "updateDate": "1984-04-20T00:00:00.000Z",
         },
         "more": "",
       }

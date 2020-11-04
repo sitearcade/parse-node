@@ -29,7 +29,7 @@ const traverseAsync = (fn = R.identity) =>
       return Promise.all(val.map((v, i) => traverse(v, [...path, i.toString()])));
     }
 
-    if (val && typeof val === 'object') {
+    if (R.type(val) === 'Object') {
       return promiseObjAll((v, k) => traverse(v, [...path, k]))(val);
     }
 
@@ -64,5 +64,5 @@ export function defaultMeta(meta) {
 }
 
 export async function parseMeta(meta) {
-  return flattenMeta(await smartenMeta(defaultMeta(meta)));
+  return smartenMeta(flattenMeta(defaultMeta(meta)));
 }
