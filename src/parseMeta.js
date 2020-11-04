@@ -58,7 +58,7 @@ export function defaultMeta(meta) {
     tags: [],
     bannerImage: [],
     ...meta,
-    publishDate: new Date(meta.publishDate || '3000').toISOString(),
+    publishDate: new Date(meta.publishDate || '1984').toISOString(),
     link: getLink(type, meta.slug ?? slug),
   };
 }
