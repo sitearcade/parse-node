@@ -2,7 +2,7 @@
 
 import R from 'ramda';
 
-import {markToHtml} from './parseMark';
+import {parseBody} from './parseBody';
 import {promiseObjAll} from './utils';
 
 // vars
@@ -39,7 +39,7 @@ const traverseAsync = (fn = R.identity) =>
 export const smartenMeta = traverseAsync(async (val, key) => (
   R.isNil(key) ? val :
   key.endsWith('Image') ? (val && val[0]) || null :
-  key.endsWith('Mark') ? await markToHtml(val || '') || null :
+  key.endsWith('Mark') ? await parseBody(val || '') || null :
   val
 ));
 

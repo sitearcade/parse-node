@@ -1,11 +1,11 @@
 {
-  "name": "@sitearcade/rewrite",
+  "name": "@sitearcade/parse-node",
   "version": "0.0.2",
   "description": "Content parsers and transformers.",
   "license": "MIT",
   "homepage": "https://www.sitearcade.com",
-  "repository": "github:sitearcade/rewrite",
-  "bugs": "https://github.com/sitearcade/rewrite/issues",
+  "repository": "github:sitearcade/parse-node",
+  "bugs": "https://github.com/sitearcade/parse-node/issues",
   "author": {
     "name": "Mike Stop Continues",
     "email": "mike@sitearcade.com",

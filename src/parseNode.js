@@ -3,7 +3,7 @@
 import R from 'ramda';
 import striptags from 'striptags';
 
-import {markToHtml} from './parseMark';
+import {parseBody} from './parseBody';
 import {parseMeta} from './parseMeta';
 import {splitMark} from './splitMark';
 import {splitMatter} from './splitMatter';
@@ -67,7 +67,7 @@ export async function parseNode(file, raw) {
 
   const [meta, body] = await Promise.all([
     parseMeta({...matter.data, file}, matter.content),
-    splitMark(matter.content).then(promiseObjAll(markToHtml)),
+    splitMark(matter.content).then(promiseObjAll(parseBody)),
   ]);
 
   return {

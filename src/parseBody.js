@@ -53,6 +53,6 @@ const mark2html = unified()
 
 // export
 
-export async function markToHtml(mark) {
+export async function parseBody(mark) {
   return mark2html.process(mark).then(String);
 }
