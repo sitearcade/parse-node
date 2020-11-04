@@ -64,5 +64,5 @@ export function defaultMeta(meta) {
 }
 
 export async function parseMeta(meta) {
-  return defaultMeta(meta) |> await smartenMeta(#) |> flattenMeta(#);
+  return flattenMeta(await smartenMeta(defaultMeta(meta)));
 }

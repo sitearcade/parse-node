@@ -14,9 +14,13 @@ const getKey = ({clip, more}, line) => (
   'more'
 );
 
-const bodyReducer = (acc, line) => getKey(acc, line) |> ({
-  ...acc, [#]: `${acc[#] + line}\n`,
-});
+const bodyReducer = (acc, line) => {
+  const key = getKey(acc, line);
+
+  return {
+    ...acc, [key]: `${acc[key] + line}\n`,
+  };
+};
 
 // export
 
