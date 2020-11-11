@@ -1,6 +1,6 @@
 // import
 
-import R from 'ramda';
+import * as R from 'ramda';
 
 import {parseBody} from './parseBody';
 import {promiseObjAll} from './utils';

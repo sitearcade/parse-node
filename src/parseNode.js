@@ -1,6 +1,6 @@
 // import
 
-import R from 'ramda';
+import * as R from 'ramda';
 import striptags from 'striptags';
 
 import {parseBody} from './parseBody';
