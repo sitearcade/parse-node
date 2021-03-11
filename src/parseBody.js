@@ -18,6 +18,7 @@ import rmUnwrapImages from 'remark-unwrap-images';
 import typographicBase from 'typographic-base';
 import unified from 'unified';
 
+import rmHint from './unified/remarkHint';
 import rmWbr from './unified/remarkWbr';
 
 // config
@@ -33,6 +34,7 @@ const mark2html = unified()
     rel: ['nofollow', 'noopener', 'noreferrer'],
     protocols: ['http', 'https', 'mailto'],
   })
+  .use(rmHint)
   .use(rmImages)
   .use(rmUnwrapImages)
   .use(rmOembed, {syncWidget: true})
