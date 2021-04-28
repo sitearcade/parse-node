@@ -85,14 +85,6 @@ const traverseAsync = (fn = noop) =>
     return val;
   };
 
-const smartenMeta: (meta: NodeMeta) => Promise<BasicMeta> =
-  traverseAsync(async (val, key) => (
-    R.isNil(key) ? val :
-    key.endsWith('Image') ? (val && val[0]) || null :
-    key.endsWith('Mark') ? await parseBody(val?.toString() ?? '') || null :
-    val
-  ));
-
 function flattenMeta(meta: DefaultMeta): NodeMeta {
   return JSON.parse(JSON.stringify(meta));
 }
@@ -112,6 +104,14 @@ function defaultMeta(meta: InputMeta): DefaultMeta {
 }
 
 // export
+
+export const smartenMeta: (meta: NodeMeta) => Promise<BasicMeta> =
+  traverseAsync(async (val, key) => (
+    R.isNil(key) ? val :
+    key.endsWith('Image') ? (val && val[0]) || null :
+    key.endsWith('Mark') ? await parseBody(val?.toString() ?? '') || null :
+    val
+  ));
 
 export async function parseMeta(meta: InputMeta) {
   return smartenMeta(flattenMeta(defaultMeta(meta)));
