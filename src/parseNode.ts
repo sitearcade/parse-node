@@ -73,7 +73,7 @@ const extractHeadings = ({body}) => {
 export async function parseNode(file: string, raw: string) {
   const matter = splitMatter(raw);
 
-  if (!matter || !matter.content) {
+  if (!matter) {
     return null;
   }
 

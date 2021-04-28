@@ -47,7 +47,8 @@ describe('parseNode(file, [rawData])', () => {
 
   it('returns null for non-existent files', async () => {
     const file = path.resolve(__dirname, './missing.md');
-    const res = await parseNode(file, '');
+    // @ts-expect-error for non-TS
+    const res = await parseNode(file);
 
     expect(res).toBeNull();
   });
