@@ -9,6 +9,10 @@ import {splitMark} from './splitMark';
 import {splitMatter} from './splitMatter';
 import {promiseObjAll} from './utils';
 
+// types
+
+type Heading = {level: number; id: string; text: string};
+
 // vars
 
 const imageRx = /<img.*?src="(.*?)"[^>]+>/g;
@@ -20,7 +24,7 @@ const puncRx = /[!.?]+$/;
 
 // fns
 
-const makeDesc = (clip) =>
+const makeDesc = (clip: string) =>
   striptags(clip).trim()
     .replace(spaceRx, ' ')
     .slice(0, 150)
@@ -28,8 +32,8 @@ const makeDesc = (clip) =>
     .replace(puncRx, '…');
 
 const extractImages = ({body}) => {
-  let match = null;
-  let res = [];
+  let match: RegExpExecArray | null = null;
+  let res: string[] = [];
 
   // eslint-disable-next-line fp/no-loops
   while ((match = imageRx.exec(body))) {
@@ -40,15 +44,16 @@ const extractImages = ({body}) => {
 };
 
 const extractHeadings = ({body}) => {
-  let match = null;
-  let res = [];
+  let match: RegExpExecArray | null = null;
+  let res: Heading[] = [];
 
   // eslint-disable-next-line fp/no-loops
   while ((match = headRx.exec(body))) {
     res = [
       ...res, {
-        ...match.groups,
-        level: parseInt(match.groups.level),
+        id: match.groups?.id as string,
+        text: match.groups?.text as string,
+        level: parseInt(match.groups?.level as string),
       },
     ];
   }
@@ -58,7 +63,7 @@ const extractHeadings = ({body}) => {
 
 // export
 
-export async function parseNode(file, raw) {
+export async function parseNode(file: string, raw: string) {
   const matter = splitMatter(raw);
 
   if (R.isNil(matter)) {
@@ -66,13 +71,13 @@ export async function parseNode(file, raw) {
   }
 
   const [meta, body] = await Promise.all([
-    parseMeta({...matter.data, file}, matter.content),
+    parseMeta({...matter.data, file}),
     splitMark(matter.content).then(promiseObjAll(parseBody)),
   ]);
 
   return {
     meta: {
-      description: makeDesc(body.clip),
+      seoDescription: makeDesc(body.clip),
       bodyImages: extractImages(body),
       headings: extractHeadings(body),
       ...meta,

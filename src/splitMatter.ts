@@ -2,6 +2,12 @@
 
 import gm from 'gray-matter';
 
+import type {GenericMeta} from './parseMeta';
+
+// types
+
+type Result = {data: GenericMeta; content: string} | null;
+
 // vars
 
 const opts = {excerpt: false};
@@ -12,7 +18,7 @@ const pluckKeys = ({content, data}) => ({content, data});
 
 // export
 
-export function splitMatter(raw) {
+export function splitMatter(raw: string): Result {
   try {
     return pluckKeys(gm(raw, opts));
   } catch (err) {

@@ -12,8 +12,8 @@ import md2rm from 'remark-parse';
 import rm2rh from 'remark-rehype';
 import rmSlug from 'remark-slug';
 import rmSqueeze from 'remark-squeeze-paragraphs';
-// import rmUnderline from 'remark-underline';
 import rmTextr from 'remark-textr';
+// import rmUnderline from 'remark-underline';
 import rmUnwrapImages from 'remark-unwrap-images';
 import typographicBase from 'typographic-base';
 import unified from 'unified';
@@ -55,6 +55,6 @@ const mark2html = unified()
 
 // export
 
-export async function parseBody(mark) {
+export async function parseBody(mark: string) {
   return mark2html.process(mark).then(String);
 }

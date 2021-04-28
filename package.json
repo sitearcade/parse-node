@@ -12,26 +12,18 @@
     "url": "https://www.sitearcade.com"
   },
   "sideEffects": false,
-  "source": "src/index.js",
+  "source": "src/index.ts",
+  "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
-  "jsnext:main": "./dist/index.modern.js",
   "module": "./dist/index.module.js",
-  "syntax": {
-    "esmodules": "./dist/index.modern.js"
-  },
-  "exports": {
-    ".": {
-      "browser": "./dist/index.module.js",
-      "import": "./dist/index.module.js",
-      "require": "./dist/index.js"
-    }
-  },
+  "exports": "./dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "**/package.json"
   ],
   "scripts": {
-    "start": "microbundle watch --no-compress -f cjs,esm,modern --jsx React.createElement --jsxImportSource react",
-    "build": "microbundle --no-compress -f cjs,esm,modern --jsx React.createElement --jsxImportSource react",
+    "start": "microbundle watch --no-compress -f cjs,esm",
+    "build": "microbundle --no-compress -f cjs,esm",
     "clean": "rm -rf dist",
     "test": "NODE_ENV=test jest --passWithNoTests --coverage",
     "test:ci": "NODE_ENV=test jest --passWithNoTests --ci",
@@ -43,17 +35,17 @@
   },
   "dependencies": {
     "@fec/remark-a11y-emoji": "^3.1.0",
-    "gray-matter": "^4.0.2",
+    "gray-matter": "^4.0.3",
     "ramda": "^0.27.1",
     "rehype-stringify": "^8.0.0",
     "remark-autolink-headings": "^6.0.1",
-    "remark-breaks": "^2.0.1",
-    "remark-emoji": "^2.1.0",
+    "remark-breaks": "^2.0.2",
+    "remark-emoji": "^2.2.0",
     "remark-external-links": "^8.0.0",
     "remark-images": "^2.0.0",
-    "remark-oembed": "^1.2.1",
+    "remark-oembed": "^1.2.2",
     "remark-parse": "^9.0.0",
-    "remark-rehype": "^8.0.0",
+    "remark-rehype": "^8.1.0",
     "remark-slug": "^6.0.0",
     "remark-squeeze-paragraphs": "^4.0.0",
     "remark-textr": "^4.0.0",
@@ -62,19 +54,23 @@
     "striptags": "^3.1.1",
     "typographic-base": "^1.0.4",
     "unified": "^9.2.1",
-    "unist-builder": "2.0.3",
-    "unist-util-visit": "^2.0.3"
+    "unist-builder": "^3.0.0",
+    "unist-util-visit": "^3.0.0"
   },
   "devDependencies": {
-    "@sitearcade/babel-preset": "1.1.9",
+    "@sitearcade/babel-preset": "1.2.1",
     "@sitearcade/browserslist-config": "0.3.1",
-    "@sitearcade/eslint-config": "1.3.0",
-    "@sitearcade/jest-preset": "2.2.0",
+    "@sitearcade/eslint-config": "1.5.2",
+    "@sitearcade/jest-preset": "2.3.13",
     "@sitearcade/prettier-config": "0.0.1",
-    "microbundle": "0.13.0"
+    "@types/fs-extra": "9.0.11",
+    "@types/ramda": "0.27.40",
+    "fs-extra": "9.1.0",
+    "microbundle": "0.13.0",
+    "typescript": "4.2.4"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "babel": {
     "presets": [

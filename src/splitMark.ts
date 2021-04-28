@@ -4,9 +4,14 @@ const newlineRx = /(?:\\\s*)?\n/g;
 const moreRx = /\s*<--\s*more\s*-->\s*/i;
 const paraRx = /^(?![#<>|]|[ `]{2}|\* |\d+\. )/;
 
+// type
+
+type ReducedMark = {clip: string; more: string};
+type ParsedMark = ReducedMark & {body: string};
+
 // fns
 
-const getKey = ({clip, more}, line) => (
+const getKey = ({clip, more}, line: string) => (
   more.length ? 'more' :
   clip.length >= 150 ? 'more' :
   moreRx.test(line) ? 'more' :
@@ -14,7 +19,7 @@ const getKey = ({clip, more}, line) => (
   'more'
 );
 
-const bodyReducer = (acc, line) => {
+const bodyReducer = (acc: ReducedMark, line: string) => {
   const key = getKey(acc, line);
 
   return {
@@ -24,7 +29,7 @@ const bodyReducer = (acc, line) => {
 
 // export
 
-export async function splitMark(mark) {
+export async function splitMark(mark: string): Promise<ParsedMark> {
   const {clip, more} = mark.split(newlineRx)
     .reduce(bodyReducer, {clip: '', more: ''});
 

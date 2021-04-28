@@ -1,6 +1,16 @@
 // import
 
-import u from 'unist-builder';
+import type {Plugin} from 'unified';
+import type {Parent, Node, Literal} from 'unist-builder';
+import {u} from 'unist-builder';
+
+// types
+
+type Iter = (
+  node: Literal | Node | Parent,
+  i?: number,
+  parent?: Literal | Node | Parent,
+) => Literal | Node | Parent;
 
 // vars
 
@@ -14,12 +24,12 @@ const typeMap = {
 
 // fns
 
-const map = (tree, iteratee) => {
-  const preorder = (node, i, parent) => {
+const map = (tree: Node, iteratee: Iter) => {
+  const preorder: Iter = (node, i, parent) => {
     const newNode = iteratee(node, i, parent);
 
     if (Array.isArray(newNode.children)) {
-      newNode.children = newNode.children.map((child, k) => {
+      newNode.children = newNode.children.map((child: Node, k: number) => {
         return preorder(child, k, node);
       });
     }
@@ -27,31 +37,31 @@ const map = (tree, iteratee) => {
     return newNode;
   };
 
-  return preorder(tree, null, null);
+  return preorder(tree);
 };
 
 // export
 
-export default function hint() {
-  return (tree) => (
+const hint: Plugin = () => {
+  return (tree: Node) => (
     map(tree, (node) => {
-      const {children = []} = node;
-
       if (node.type !== 'paragraph') {
         return node;
       }
 
-      const [{value, type}, ...siblings] = children;
+      const [child, ...siblings] =
+        Array.isArray(node.children) ? node.children : [];
 
-      if (type !== 'text' || !hintRx.test(value)) {
+      if (child.type !== 'text' || !hintRx.test(child.value)) {
         return node;
       }
 
       const [typeClass, typeRx] = Object.entries(typeMap)
-        .find(([, r]) => r.test(value));
+        .find(([, r]) => r.test(child.value?.toString?.() ?? '')) ?? [];
 
       const newChild = {
-        type, value: value.replace(typeRx, ''),
+        type: child.type,
+        value: child.value.replace(typeRx, ''),
       };
 
       const props = {
@@ -66,5 +76,7 @@ export default function hint() {
       return u('paragraph', props, [newChild, ...siblings]);
     })
   );
-}
+};
+
+export default hint;
 
