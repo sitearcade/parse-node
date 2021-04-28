@@ -2,11 +2,11 @@
 
 import gm from 'gray-matter';
 
-import type {GenericMeta} from './parseMeta';
+import type {NodeMeta} from './parseMeta';
 
 // types
 
-type Result = {data: GenericMeta; content: string} | null;
+type Result = {data: NodeMeta; content: string} | null;
 
 // vars
 

@@ -1,8 +1,8 @@
 // import
 
 import type {Plugin} from 'unified';
-import type {Parent, Node, Literal} from 'unist-builder';
-import {u} from 'unist-builder';
+import type {Parent, Node, Literal} from 'unist';
+import u from 'unist-builder';
 
 // types
 

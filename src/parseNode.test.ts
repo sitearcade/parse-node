@@ -2,8 +2,6 @@
 
 import path from 'path';
 
-import fs from 'fs-extra';
-
 import {parseNode} from './parseNode';
 
 // vars
@@ -31,11 +29,11 @@ describe('parseNode(file, [rawData])', () => {
           "bannerImage": null,
           "bodyImages": Array [],
           "createDate": "1984-04-08T00:00:00.000Z",
-          "seoDescription": "This is the body…",
           "file": "./content/post/slug.md",
           "headings": Array [],
           "link": "/post/slug",
           "publishDate": "2012-12-21T00:00:00.000Z",
+          "seoDescription": "This is the body…",
           "slug": "slug",
           "tags": Array [],
           "title": "Title",
@@ -49,8 +47,7 @@ describe('parseNode(file, [rawData])', () => {
 
   it('returns null for non-existent files', async () => {
     const file = path.resolve(__dirname, './missing.md');
-    // eslint-disable-next-line no-sync
-    const res = await parseNode(file, fs.readFileSync(file, 'utf8'));
+    const res = await parseNode(file, '');
 
     expect(res).toBeNull();
   });

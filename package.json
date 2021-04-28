@@ -54,17 +54,18 @@
     "striptags": "^3.1.1",
     "typographic-base": "^1.0.4",
     "unified": "^9.2.1",
-    "unist-builder": "^3.0.0",
-    "unist-util-visit": "^3.0.0"
+    "unist-builder": "=2.0.3",
+    "unist-util-visit": "=2.0.3"
   },
   "devDependencies": {
-    "@sitearcade/babel-preset": "1.2.1",
+    "@sitearcade/babel-preset": "1.2.3",
     "@sitearcade/browserslist-config": "0.3.1",
     "@sitearcade/eslint-config": "1.5.2",
-    "@sitearcade/jest-preset": "2.3.13",
+    "@sitearcade/jest-preset": "4.0.0",
     "@sitearcade/prettier-config": "0.0.1",
     "@types/fs-extra": "9.0.11",
     "@types/ramda": "0.27.40",
+    "@types/unist": "2.0.3",
     "fs-extra": "9.1.0",
     "microbundle": "0.13.0",
     "typescript": "4.2.4"

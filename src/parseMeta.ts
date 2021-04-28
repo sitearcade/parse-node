@@ -16,25 +16,28 @@ type Json =
   | {[key: string]: Json}
   | null;
 
-export type GenericMeta<T = unknown> = Record<string, Json> & T;
-type InputMeta = GenericMeta<{file: string}>;
+export type NodeMeta<T = unknown> = Record<string, Json> & T;
 
-type DefaultMeta = GenericMeta<{
+type InputMeta = NodeMeta<{file: string}>;
+
+type DefaultMeta = NodeMeta<{
   type: string;
   slug: string;
+  file: string;
+  link: string;
   tags: string[];
   bannerImage: string[];
   publishDate: string;
-  link: string;
 }>;
 
-type NodeMeta = GenericMeta<{
+type BasicMeta = NodeMeta<{
   type: string;
   slug: string;
+  file: string;
+  link: string;
   tags: string[];
   bannerImage: string | null;
   publishDate: string;
-  link: string;
 }>;
 
 // vars
@@ -82,7 +85,7 @@ const traverseAsync = (fn = noop) =>
     return val;
   };
 
-const smartenMeta: (meta: GenericMeta) => Promise<NodeMeta> =
+const smartenMeta: (meta: NodeMeta) => Promise<BasicMeta> =
   traverseAsync(async (val, key) => (
     R.isNil(key) ? val :
     key.endsWith('Image') ? (val && val[0]) || null :
@@ -90,7 +93,7 @@ const smartenMeta: (meta: GenericMeta) => Promise<NodeMeta> =
     val
   ));
 
-function flattenMeta(meta: DefaultMeta): GenericMeta {
+function flattenMeta(meta: DefaultMeta): NodeMeta {
   return JSON.parse(JSON.stringify(meta));
 }
 

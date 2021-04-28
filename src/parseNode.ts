@@ -1,9 +1,9 @@
 // import
 
-import * as R from 'ramda';
 import striptags from 'striptags';
 
 import {parseBody} from './parseBody';
+import type {NodeMeta} from './parseMeta';
 import {parseMeta} from './parseMeta';
 import {splitMark} from './splitMark';
 import {splitMatter} from './splitMatter';
@@ -12,6 +12,13 @@ import {promiseObjAll} from './utils';
 // types
 
 type Heading = {level: number; id: string; text: string};
+
+export type ContentNode<T> = {
+  meta: NodeMeta<T>;
+  clip: string;
+  more: string;
+  body: string;
+};
 
 // vars
 
@@ -66,7 +73,7 @@ const extractHeadings = ({body}) => {
 export async function parseNode(file: string, raw: string) {
   const matter = splitMatter(raw);
 
-  if (R.isNil(matter)) {
+  if (!matter || !matter.content) {
     return null;
   }
 

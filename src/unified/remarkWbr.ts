@@ -1,8 +1,8 @@
 // import
 
 import type {Plugin} from 'unified';
-import type {Node} from 'unist-util-visit';
-import {visit} from 'unist-util-visit';
+import type {Node} from 'unist';
+import visit from 'unist-util-visit';
 
 // vars
 
