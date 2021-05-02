@@ -3,7 +3,6 @@
 import rmA11yEmoji from '@fec/remark-a11y-emoji';
 import rh2html from 'rehype-stringify';
 import rmLinkHead from 'remark-autolink-headings';
-import rmBehead from 'remark-behead';
 import rmBreaks from 'remark-breaks';
 import rmEmoji from 'remark-emoji';
 import rmExtLinks from 'remark-external-links';
@@ -42,7 +41,6 @@ const mark2html = unified()
   .use(rmBreaks)
   .use(rmSqueeze)
   .use(rmSlug)
-  .use(rmBehead, {depth: 1})
   .use(rmLinkHead, {
     behavior: 'wrap',
     linkProperties: {ariaHidden: true, tabIndex: -1, className: 'anchor'},
