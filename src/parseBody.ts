@@ -31,7 +31,7 @@ const mark2html = unified()
   // .use(rmUnderline, {tagType: 'u', classNames: []})
   .use(rmExtLinks, {
     target: '_blank',
-    rel: ['nofollow', 'noopener', 'noreferrer'],
+    rel: ['noopener', 'noreferrer'],
     protocols: ['http', 'https', 'mailto'],
   })
   .use(rmHint)
