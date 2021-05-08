@@ -26,7 +26,6 @@ describe('parseNode(file, [rawData])', () => {
         "body": "<p><em>This</em> is the <strong>body</strong>.</p>",
         "clip": "<p><em>This</em> is the <strong>body</strong>.</p>",
         "meta": Object {
-          "bannerImage": null,
           "bodyImages": Array [],
           "createDate": "1984-04-08T00:00:00.000Z",
           "file": "./content/post/slug.md",
@@ -35,7 +34,6 @@ describe('parseNode(file, [rawData])', () => {
           "publishDate": "2012-12-21T00:00:00.000Z",
           "seoDescription": "This is the body…",
           "slug": "slug",
-          "tags": Array [],
           "title": "Title",
           "type": "post",
           "updateDate": "1984-04-20T00:00:00.000Z",
