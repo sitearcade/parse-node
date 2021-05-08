@@ -16,7 +16,7 @@ type Json =
   | {[key: string]: Json}
   | null;
 
-export type NodeMeta<T = unknown> = Record<string, Json> & T;
+export type NodeMeta<T = unknown> = Record<string, unknown> & T;
 
 type InputMeta = NodeMeta<{file: string}>;
 
@@ -60,8 +60,13 @@ const noop = async (
 
 const getLink = (type: string, slug: string) => (
   type === 'page' ? keyPages[slug] || `/${slug}` :
-  type === 'help' ? `/support/${slug}` :
-  `/${type}/${slug}`
+  type === 'person' ? keyPages[slug] || `/blog/author/${slug}` :
+  type === 'post' ? keyPages[slug] || `/post/${slug}` :
+  type === 'postTag' ? keyPages[slug] || `/blog/tag/${slug}` :
+  type === 'series' ? keyPages[slug] || `/blog/series/${slug}` :
+  type === 'support' ? `/support/${slug}` :
+  type === 'supportTag' ? `/support/tag/${slug}` :
+  undefined
 );
 
 const traverseAsync = (fn = noop) =>
