@@ -18,16 +18,10 @@ type Json =
 
 export type NodeMeta<T = unknown> = Record<string, unknown> & T;
 
-type InputMeta = NodeMeta<{file: string}>;
-
-type DefaultMeta = NodeMeta<{
-  type: string;
-  slug: string;
+type InputMeta = NodeMeta<{
   file: string;
-  link: string;
-  tags: string[];
-  bannerImage: string[];
-  publishDate: string;
+  publishDate?: string;
+  slug?: string;
 }>;
 
 type BasicMeta = NodeMeta<{
@@ -35,8 +29,6 @@ type BasicMeta = NodeMeta<{
   slug: string;
   file: string;
   link: string;
-  tags: string[];
-  bannerImage: string | null;
   publishDate: string;
 }>;
 
@@ -90,18 +82,16 @@ const traverseAsync = (fn = noop) =>
     return val;
   };
 
-function flattenMeta(meta: DefaultMeta): NodeMeta {
+function flattenMeta(meta: BasicMeta): BasicMeta {
   return JSON.parse(JSON.stringify(meta));
 }
 
-function defaultMeta(meta: InputMeta): DefaultMeta {
+function defaultMeta(meta: InputMeta): BasicMeta {
   const {type, slug} = typeSlugRx.exec(meta.file.toString())?.groups ?? {};
 
   return {
     type,
     slug,
-    tags: [],
-    bannerImage: [],
     ...meta,
     publishDate: new Date(meta.publishDate?.toString() || '1984').toISOString(),
     link: getLink(type, meta.slug?.toString() ?? slug),
@@ -110,7 +100,7 @@ function defaultMeta(meta: InputMeta): DefaultMeta {
 
 // export
 
-export const smartenMeta: (meta: NodeMeta) => Promise<BasicMeta> =
+export const smartenMeta: (meta: any) => any =
   traverseAsync(async (val, key) => (
     R.isNil(key) ? val :
     key.endsWith('Image') ? (val && val[0]) || null :
