@@ -50,7 +50,7 @@ const noop = async (
   _path: string[],
 ): Promise<Json> => val;
 
-const getLink = (type: string, slug: string) => (
+export const getLink = (type: string, slug: string) => (
   type === 'page' ? keyPages[slug] || `/${slug}` :
   type === 'person' ? keyPages[slug] || `/blog/author/${slug}` :
   type === 'post' ? keyPages[slug] || `/post/${slug}` :
