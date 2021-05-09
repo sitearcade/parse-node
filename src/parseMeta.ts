@@ -51,11 +51,12 @@ const noop = async (
 ): Promise<Json> => val;
 
 export const getLink = (type: string, slug: string) => (
-  type === 'page' ? keyPages[slug] || `/${slug}` :
-  type === 'person' ? keyPages[slug] || `/blog/author/${slug}` :
-  type === 'post' ? keyPages[slug] || `/post/${slug}` :
-  type === 'postTag' ? keyPages[slug] || `/blog/tag/${slug}` :
-  type === 'series' ? keyPages[slug] || `/blog/series/${slug}` :
+  type === 'main' ? keyPages[slug] || `/${slug}` :
+  type === 'page' ? `/${slug}` :
+  type === 'person' ? `/blog/author/${slug}` :
+  type === 'post' ? `/post/${slug}` :
+  type === 'postTag' ? `/blog/tag/${slug}` :
+  type === 'series' ? `/blog/series/${slug}` :
   type === 'support' ? `/support/${slug}` :
   type === 'supportTag' ? `/support/tag/${slug}` :
   undefined
