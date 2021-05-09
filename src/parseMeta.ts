@@ -105,6 +105,7 @@ export const smartenMeta: (meta: any) => any =
     R.isNil(key) ? val :
     key.endsWith('Image') ? (val && val[0]) || null :
     key.endsWith('Mark') ? await parseBody(val?.toString() ?? '') || null :
+    key === 'headline' ? await parseBody(val?.toString() ?? '').then((res) => res.slice(3, -4)) || null :
     val
   ));
 
