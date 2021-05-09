@@ -104,9 +104,12 @@ export const smartenMeta: (meta: any) => any =
   traverseAsync(async (val, key) => (
     R.isNil(key) ? val :
     key.endsWith('Image') ? (val && val[0]) || null :
-    key.endsWith('Mark') ? await parseBody(val?.toString() ?? '') || null :
-    key === 'headline' ? await parseBody(val?.toString() ?? '').then((res) => res.slice(3, -4)) || null :
-    val
+    key.endsWith('Mark') || key === 'bodyTpl' ?
+      await parseBody(val?.toString() ?? '') || null :
+      ['headline', 'subhead'].includes(key) ?
+        await parseBody(val?.toString() ?? '')
+          .then((res) => res.slice(3, -4)) || null :
+        val
   ));
 
 export async function parseMeta(meta: InputMeta) {
