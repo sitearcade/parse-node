@@ -1,6 +1,6 @@
 {
   "name": "@sitearcade/parse-node",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Content parsers and transformers.",
   "license": "MIT",
   "homepage": "https://www.sitearcade.com",
