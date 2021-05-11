@@ -60,7 +60,7 @@
   "devDependencies": {
     "@sitearcade/babel-preset": "1.2.3",
     "@sitearcade/browserslist-config": "0.3.1",
-    "@sitearcade/eslint-config": "1.5.3",
+    "@sitearcade/eslint-config": "1.5.4",
     "@sitearcade/jest-preset": "4.0.0",
     "@sitearcade/prettier-config": "0.0.1",
     "@types/fs-extra": "9.0.11",
