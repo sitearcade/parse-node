@@ -42,7 +42,6 @@ const extractImages = ({body}) => {
   let match: RegExpExecArray | null = null;
   let res: string[] = [];
 
-  // eslint-disable-next-line fp/no-loops
   while ((match = imageRx.exec(body))) {
     res = [...res, match[1]];
   }
@@ -54,7 +53,6 @@ const extractHeadings = ({body}) => {
   let match: RegExpExecArray | null = null;
   let res: Heading[] = [];
 
-  // eslint-disable-next-line fp/no-loops
   while ((match = headRx.exec(body))) {
     res = [
       ...res, {
@@ -84,7 +82,7 @@ export async function parseNode(file: string, raw: string) {
 
   return {
     meta: {
-      seoDescription: makeDesc(body.clip),
+      seoDescription: makeDesc(body.clip.trim() || meta.blurbMark),
       bodyImages: extractImages(body),
       headings: extractHeadings(body),
       ...meta,
