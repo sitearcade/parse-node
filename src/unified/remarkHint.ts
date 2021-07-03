@@ -1,8 +1,9 @@
 // import
 
+import u from 'unist-builder';
+
 import type {Plugin} from 'unified';
 import type {Parent, Node, Literal} from 'unist';
-import u from 'unist-builder';
 
 // types
 
@@ -66,6 +67,7 @@ const hint: Plugin = () => {
 
       const props = {
         data: {
+          hName: 'aside',
           class: typeClass,
           hProperties: {
             class: typeClass,
