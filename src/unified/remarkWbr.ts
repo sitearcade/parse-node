@@ -1,8 +1,9 @@
 // import
 
-import type {Plugin} from 'unified';
-import type {Node} from 'unist';
 import visit from 'unist-util-visit';
+
+import type {Node, Text} from './utils';
+import type {Plugin} from 'unified';
 
 // vars
 
@@ -12,9 +13,9 @@ const wbrRx = /(\/+)/g;
 
 const breaks: Plugin = () => {
   return (tree: Node) => (
-    visit(tree, 'text', (node) => {
+    visit(tree, 'text', (node: Text) => {
       node.type = 'html';
-      node.value = (node.value as string).replace(wbrRx, '$1<wbr />');
+      node.value = node.value.replace(wbrRx, '$1<wbr />');
     })
   );
 };

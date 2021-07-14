@@ -3,11 +3,12 @@
 import striptags from 'striptags';
 
 import {parseBody} from './parseBody';
-import type {NodeMeta} from './parseMeta';
 import {parseMeta} from './parseMeta';
 import {splitMark} from './splitMark';
 import {splitMatter} from './splitMatter';
 import {promiseObjAll} from './utils';
+
+import type {NodeMeta} from './parseMeta';
 
 // types
 

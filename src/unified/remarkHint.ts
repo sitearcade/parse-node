@@ -2,20 +2,21 @@
 
 import u from 'unist-builder';
 
+import {isParent, isText} from './utils';
+
+import type {Node} from './utils';
 import type {Plugin} from 'unified';
-import type {Parent, Node, Literal} from 'unist';
 
 // types
 
 type Iter = (
-  node: Literal | Node | Parent,
+  node: Node,
   i?: number,
-  parent?: Literal | Node | Parent,
-) => Literal | Node | Parent;
+  parent?: Node,
+) => Node;
 
 // vars
 
-const hintRx = /^[!#+?](>|&gt;)\s/;
 const typeMap = {
   'hint bonus': /^\+(>|&gt;)\s/,
   'hint info': /^!(>|&gt;)\s/,
@@ -29,7 +30,7 @@ const map = (tree: Node, iteratee: Iter) => {
   const preorder: Iter = (node, i, parent) => {
     const newNode = iteratee(node, i, parent);
 
-    if (Array.isArray(newNode.children)) {
+    if (isParent(newNode)) {
       newNode.children = newNode.children.map((child: Node, k: number) => {
         return preorder(child, k, node);
       });
@@ -50,27 +51,30 @@ const hint: Plugin = () => {
         return node;
       }
 
-      const [child, ...siblings] =
-        Array.isArray(node.children) ? node.children : [];
+      const [child, ...siblings] = isParent(node) ? node.children : [];
 
-      if (child.type !== 'text' || !hintRx.test(child.value)) {
+      if (!isText(child)) {
         return node;
       }
 
-      const [typeClass, typeRx] = Object.entries(typeMap)
-        .find(([, r]) => r.test(child.value?.toString?.() ?? '')) ?? [];
+      const match = Object.entries(typeMap)
+        .find(([, rx]) => rx.test(child.value));
+
+      if (!match) {
+        return node;
+      }
 
       const newChild = {
         type: child.type,
-        value: child.value.replace(typeRx, ''),
+        value: child.value.replace(match[1], ''),
       };
 
       const props = {
         data: {
           hName: 'aside',
-          class: typeClass,
+          class: match[0],
           hProperties: {
-            class: typeClass,
+            class: match[0],
           },
         },
       };
