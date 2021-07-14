@@ -13,9 +13,19 @@ import rm2rh from 'remark-rehype';
 import rmSlug from 'remark-slug';
 import rmSqueeze from 'remark-squeeze-paragraphs';
 import rmTextr from 'remark-textr';
-// import rmUnderline from 'remark-underline';
 import rmUnwrapImages from 'remark-unwrap-images';
-import typographicBase from 'typographic-base';
+import textrApostrophes from 'typographic-apostrophes';
+import textrApostrophesForPlurals from 'typographic-apostrophes-for-possessive-plurals';
+import textrArrows from 'typographic-arrows';
+import textrCopyright from 'typographic-copyright';
+import textrEllipses from 'typographic-ellipses';
+import textrEmDashes from 'typographic-em-dashes';
+import textrEnDashes from 'typographic-en-dashes';
+import textrMathSymbols from 'typographic-math-symbols';
+import textrQuotes from 'typographic-quotes';
+import textrRegisteredTrademark from 'typographic-registered-trademark';
+import textrSingleSpaces from 'typographic-single-spaces';
+import textrTrademark from 'typographic-trademark';
 import unified from 'unified';
 
 import rmHint from './unified/remarkHint';
@@ -27,8 +37,6 @@ const mark2html = unified()
   .use(md2rm)
   .use(rmEmoji)
   .use(rmA11yEmoji)
-  // FIXME: https://github.com/Darkhax/remark-underline/issues/2
-  // .use(rmUnderline, {tagType: 'u', classNames: []})
   .use(rmExtLinks, {
     target: '_blank',
     rel: ['noopener', 'noreferrer'],
@@ -47,7 +55,20 @@ const mark2html = unified()
   })
   .use(rmTextr, {
     options: {locale: 'en-us'},
-    plugins: [typographicBase],
+    plugins: [
+      textrApostrophes,
+      textrQuotes,
+      textrApostrophesForPlurals,
+      textrArrows,
+      textrCopyright,
+      textrEllipses,
+      textrEmDashes,
+      textrEnDashes,
+      textrMathSymbols,
+      textrRegisteredTrademark,
+      textrSingleSpaces,
+      textrTrademark,
+    ],
   })
   .use(rmWbr)
   .use(rm2rh, {allowDangerousHtml: true})

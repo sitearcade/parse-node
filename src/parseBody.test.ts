@@ -4,9 +4,6 @@ import {parseBody} from './parseBody';
 
 // vars
 
-const mark =
-  '_This_ is the **body**... And I think--if I may--that we can use special text characters too. "I think," said the thinker. Also, some/wbrs/are/due.';
-
 const hints = `
 This is a paragraph.
 
@@ -33,7 +30,9 @@ This is a paragraph.
 
 describe('parseBody(mark)', () => {
   it('produces valid output for real data', async () => {
-    const res = await parseBody(mark);
+    const res = await parseBody(
+      '_This_ is the **body**... And I think--if I may--that we can use special text characters too. "I think," said the thinker. Also, some/wbrs/are/due.',
+    );
 
     expect(res).toMatchInlineSnapshot(
       '"<p><em>This</em> is the <strong>body</strong>… And I think—if I may—that we can use special text characters too. “I think,” said the thinker. Also, some/<wbr />wbrs/<wbr />are/<wbr />due.</p>"',
@@ -41,7 +40,9 @@ describe('parseBody(mark)', () => {
   });
 
   it('supports hints', async () => {
-    expect(await parseBody(hints)).toMatchInlineSnapshot(`
+    const res = await parseBody(hints);
+
+    expect(res).toMatchInlineSnapshot(`
       "<p>This is a paragraph.</p>
       <aside class=\\"hint bonus\\">A bonus!</aside>
       <aside class=\\"hint info\\">An <em>info</em>.</aside>
@@ -57,5 +58,15 @@ describe('parseBody(mark)', () => {
       </ul>
       </aside>"
     `);
+  });
+
+  it('avoids converting regular words into currency symbols', async () => {
+    const res = await parseBody(
+      'They ***ask*** for one... Make your talent and knowledge available to likeminded colleagues. *Ay, there’s the rub.*',
+    );
+
+    expect(res).toMatchInlineSnapshot(
+      '"<p>They <em><strong>ask</strong></em> for one… Make your talent and knowledge available to likeminded colleagues. <em>Ay, there’s the rub.</em></p>"',
+    );
   });
 });
